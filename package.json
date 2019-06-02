@@ -1,5 +1,5 @@
 {
-  "name": "slick-carousel",
+  "name": "slick-carousel-go-to-thumb",
   "version": "1.9.0",
   "description": "the last carousel you'll ever need",
   "main": "slick/slick.js",
