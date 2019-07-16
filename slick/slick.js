@@ -2030,10 +2030,28 @@
         if (_.options.rtl === true) {
             position = -position;
         }
-        x = _.positionProp == 'left' ? Math.ceil(position) + 'px' : '0px';
-        y = _.positionProp == 'top' ? Math.ceil(position) + 'px' : '0px';
+        var yValueChanged = false;
+        if (_.positionProp === 'top') {
+            if (_.activeBreakpoint === null
+              || typeof _.breakpointSettings[_.activeBreakpoint].slidesToShow === 'undefined') {
+                if (_.slideCount <= _.options.slidesToShow ) {
+                    y = '0px';
+                    yValueChanged = true;
+                }
+            } else {
+                if (_.slideCount <= _.breakpointSettings[_.activeBreakpoint].slidesToShow) {
+                    y = '0px';
+                    yValueChanged = true;
+                }
+            }
+        }
 
-        positionProps[_.positionProp] = position;
+        x = _.positionProp == 'left' ? Math.ceil(position) + 'px' : '0px';
+        if (!yValueChanged) {
+            y = _.positionProp == 'top' ? Math.ceil(position) + 'px' : '0px';
+        }
+
+        positionProps[_.positionProp] = yValueChanged ? 0 : position;
 
         if (_.transformsEnabled === false) {
             _.$slideTrack.css(positionProps);
