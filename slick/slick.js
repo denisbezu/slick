@@ -72,6 +72,7 @@
                 respondTo: 'window',
                 responsive: null,
                 rows: 1,
+                videoClass: null,
                 rtl: false,
                 slide: '',
                 slidesPerRow: 1,
@@ -2517,6 +2518,18 @@
 
         var targetSlide, animSlide, oldSlide, slideLeft, targetLeft = null,
             _ = this, navTarget;
+
+        if (_.options.videoClass !== null) {
+            var skipHandler = false;
+            _.$slides.each(function (slideIndex, item) {
+                if ($(item).find(_.options.videoClass).length > 0 && slideIndex === index) {
+                    skipHandler = true;
+                }
+            });
+            if (skipHandler) {
+                return;
+            }
+        }
 
         sync = sync || false;
 
